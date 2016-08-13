@@ -1,5 +1,6 @@
 module Control.Logger
 ( Logger(Logger)
+, log
 , cfilter
 ) where
 
@@ -18,6 +19,10 @@ instance semigroupLogger :: (Apply m) => Semigroup (Logger m r) where
 
 instance monoidLogger :: (Applicative m) => Monoid (Logger m r) where
   mempty = Logger \_ -> pure unit
+
+-- | Log a record to the logger.
+log :: forall m r. Logger m r -> r -> m Unit
+log (Logger l) = l
 
 -- | Transform the logger such that it ignores records for which the predicate
 -- | returns false.
