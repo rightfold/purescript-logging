@@ -7,6 +7,7 @@ import Data.Functor.Contravariant (class Contravariant)
 import Data.Monoid (class Monoid)
 import Prelude
 
+-- | A logger receives records and potentially performs some effects.
 newtype Logger m r = Logger (r -> m Unit)
 
 instance contravariantLogger :: Contravariant (Logger m) where
@@ -18,5 +19,7 @@ instance semigroupLogger :: (Apply m) => Semigroup (Logger m r) where
 instance monoidLogger :: (Applicative m) => Monoid (Logger m r) where
   mempty = Logger \_ -> pure unit
 
+-- | Transform the logger such that it ignores records for which the predicate
+-- | returns false.
 cfilter :: forall m r. (Applicative m) => (r -> Boolean) -> Logger m r -> Logger m r
 cfilter f (Logger l) = Logger \r -> when (f r) (l r)
