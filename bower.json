@@ -8,5 +8,9 @@
     "purescript-console": "^1.0.0",
     "purescript-eff": "^1.0.0",
     "purescript-transformers": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rightfold/purescript-logging.git"
   }
 }
