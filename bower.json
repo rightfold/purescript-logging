@@ -1,5 +1,6 @@
 {
   "name": "purescript-logging",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "purescript-prelude": "^1.0.1",
     "purescript-contravariant": "^1.0.0",
