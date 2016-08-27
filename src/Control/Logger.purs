@@ -4,8 +4,10 @@ module Control.Logger
 , cfilter
 ) where
 
+import Data.Decide (class Decide)
 import Data.Divide (class Divide)
 import Data.Divisible (class Divisible)
+import Data.Either (Either(..))
 import Data.Functor.Contravariant (class Contravariant)
 import Data.Monoid (class Monoid)
 import Data.Tuple (Tuple(..))
@@ -23,6 +25,12 @@ instance divideLogger :: (Apply m) => Divide (Logger m) where
 
 instance divisibleLogger :: (Applicative m) => Divisible (Logger m) where
   conquer = Logger \_ -> pure unit
+
+instance decideLogger :: (Apply m) => Decide (Logger m) where
+  choose f (Logger a) (Logger b) =
+    Logger \r -> case f r of
+                   Left  r' -> a r'
+                   Right r' -> b r'
 
 instance semigroupLogger :: (Apply m) => Semigroup (Logger m r) where
   append (Logger a) (Logger b) = Logger \r -> a r *> b r
