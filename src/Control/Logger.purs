@@ -4,6 +4,7 @@ module Control.Logger
 , cfilter
 ) where
 
+import Data.Decidable (class Decidable)
 import Data.Decide (class Decide)
 import Data.Divide (class Divide)
 import Data.Divisible (class Divisible)
@@ -31,6 +32,9 @@ instance decideLogger :: (Apply m) => Decide (Logger m) where
     Logger \r -> case f r of
                    Left  r' -> a r'
                    Right r' -> b r'
+
+instance decidableLogger :: (Applicative m) => Decidable (Logger m) where
+  lose f = Logger \r -> absurd (f r)
 
 instance semigroupLogger :: (Apply m) => Semigroup (Logger m r) where
   append (Logger a) (Logger b) = Logger \r -> a r *> b r
