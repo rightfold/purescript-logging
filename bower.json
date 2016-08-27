@@ -7,7 +7,8 @@
     "purescript-monoid": "^1.0.0",
     "purescript-console": "^1.0.0",
     "purescript-eff": "^1.0.0",
-    "purescript-transformers": "^1.0.0"
+    "purescript-transformers": "^1.0.0",
+    "purescript-tuples": "^1.0.0"
   },
   "repository": {
     "type": "git",

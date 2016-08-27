@@ -4,8 +4,10 @@ module Control.Logger
 , cfilter
 ) where
 
+import Data.Divide (class Divide)
 import Data.Functor.Contravariant (class Contravariant)
 import Data.Monoid (class Monoid)
+import Data.Tuple (Tuple(..))
 import Prelude
 
 -- | A logger receives records and potentially performs some effects.
@@ -13,6 +15,10 @@ newtype Logger m r = Logger (r -> m Unit)
 
 instance contravariantLogger :: Contravariant (Logger m) where
   cmap f (Logger l) = Logger \r -> l (f r)
+
+instance divideLogger :: (Apply m) => Divide (Logger m) where
+  divide f (Logger a) (Logger b) =
+    Logger \r -> case f r of Tuple r1 r2 -> a r1 *> b r2
 
 instance semigroupLogger :: (Apply m) => Semigroup (Logger m r) where
   append (Logger a) (Logger b) = Logger \r -> a r *> b r
