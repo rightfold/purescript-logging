@@ -1,15 +1,21 @@
 {
   "name": "purescript-logging",
   "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
   "dependencies": {
-    "purescript-prelude": "^1.0.1",
-    "purescript-contravariant": "^1.0.0",
-    "purescript-monoid": "^1.0.0",
-    "purescript-console": "^1.0.0",
-    "purescript-eff": "^1.0.0",
-    "purescript-transformers": "^1.0.0",
-    "purescript-tuples": "^1.0.0",
-    "purescript-either": "^1.0.0"
+    "purescript-prelude": "^2.1.0",
+    "purescript-contravariant": "^2.0.0",
+    "purescript-monoid": "^2.0.0",
+    "purescript-console": "^2.0.0",
+    "purescript-eff": "^2.0.0",
+    "purescript-transformers": "^2.0.1",
+    "purescript-tuples": "^3.0.0",
+    "purescript-either": "^2.0.0"
   },
   "repository": {
     "type": "git",
