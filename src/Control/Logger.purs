@@ -2,6 +2,7 @@ module Control.Logger
 ( Logger(Logger)
 , log
 , cfilter
+, hoist
 ) where
 
 import Data.Decidable (class Decidable)
@@ -50,3 +51,7 @@ log (Logger l) = l
 -- | returns false.
 cfilter :: forall m r. (Applicative m) => (r -> Boolean) -> Logger m r -> Logger m r
 cfilter f (Logger l) = Logger \r -> when (f r) (l r)
+
+-- | Apply a natural transformation to the underlying functor.
+hoist :: forall m m' r. (m ~> m') -> Logger m r -> Logger m' r
+hoist f (Logger l) = Logger (f <<< l)
