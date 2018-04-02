@@ -1,4 +1,4 @@
-# purescript-logger
+# purescript-logging
 
 Composable loggers for PureScript.
 
