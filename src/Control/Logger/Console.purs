@@ -3,12 +3,12 @@ module Control.Logger.Console
 ) where
 
 import Control.Logger (Logger(Logger))
-import Control.Monad.Eff.Class (liftEff, class MonadEff)
-import Control.Monad.Eff.Console (CONSOLE, log)
+import Effect.Class (liftEffect, class MonadEffect)
+import Effect.Console (log)
 
 -- | Logger that logs records to the console.
-console :: forall m e r
-         . (MonadEff (console :: CONSOLE | e) m)
+console :: forall m r
+         . MonadEffect  m
         => (r -> String)
         -> Logger m r
-console show = Logger \r -> liftEff (log (show r))
+console show = Logger \r -> liftEffect (log (show r))

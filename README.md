@@ -24,7 +24,7 @@ type Entry =
   , fields :: Map String String
   }
 
-fileLogger :: forall e. Path -> Logger (Eff (fs :: FS | e)) Entry
+fileLogger :: Path -> Logger Effect Entry
 fileLogger path = Logger \entry -> ?todo {- append entry to file -}
 
 main = do

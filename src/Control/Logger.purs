@@ -11,7 +11,6 @@ import Data.Divide (class Divide)
 import Data.Divisible (class Divisible)
 import Data.Either (Either(..))
 import Data.Functor.Contravariant (class Contravariant)
-import Data.Monoid (class Monoid)
 import Data.Tuple (Tuple(..))
 import Prelude
 
