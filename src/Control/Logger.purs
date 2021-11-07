@@ -17,29 +17,29 @@ import Prelude
 -- | A logger receives records and potentially performs some effects.
 newtype Logger m r = Logger (r -> m Unit)
 
-instance contravariantLogger :: Contravariant (Logger m) where
+instance Contravariant (Logger m) where
   cmap f (Logger l) = Logger \r -> l (f r)
 
-instance divideLogger :: (Apply m) => Divide (Logger m) where
+instance (Apply m) => Divide (Logger m) where
   divide f (Logger a) (Logger b) =
     Logger \r -> case f r of Tuple r1 r2 -> a r1 *> b r2
 
-instance divisibleLogger :: (Applicative m) => Divisible (Logger m) where
+instance (Applicative m) => Divisible (Logger m) where
   conquer = Logger \_ -> pure unit
 
-instance decideLogger :: (Apply m) => Decide (Logger m) where
+instance (Apply m) => Decide (Logger m) where
   choose f (Logger a) (Logger b) =
     Logger \r -> case f r of
                    Left  r' -> a r'
                    Right r' -> b r'
 
-instance decidableLogger :: (Applicative m) => Decidable (Logger m) where
+instance (Applicative m) => Decidable (Logger m) where
   lose f = Logger \r -> absurd (f r)
 
-instance semigroupLogger :: (Apply m) => Semigroup (Logger m r) where
+instance (Apply m) => Semigroup (Logger m r) where
   append (Logger a) (Logger b) = Logger \r -> a r *> b r
 
-instance monoidLogger :: (Applicative m) => Monoid (Logger m r) where
+instance (Applicative m) => Monoid (Logger m r) where
   mempty = Logger \_ -> pure unit
 
 -- | Log a record to the logger.
